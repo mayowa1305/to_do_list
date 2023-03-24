@@ -1,4 +1,4 @@
-<?php
+<?php    
     session_start();
     require("dbconfig/dbconfig.php");
 ?>
@@ -40,14 +40,15 @@
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-row align-items-center">
-                    <form action="" method="post">
+                    <form action="to_do.php" method="post">
                         <label><b>Input task:</b></label><br>
                     <input name = "task" type="text" class="form-control form-control-lg" id="exampleFormControlInput1"
                       placeholder="Add new..."><br><br>
                       <label><b>Due Date:</b></label><br>
                     <input type="date" name= "due_date">
                     <div>
-                      <br><button name= "submit" type="submit" class="btn btn-primary">Add</button>
+                      <br><input name= "submit" type="submit" class="btn btn-primary" value="add"><br><br>
+                      <a href="todo.php"><input type="button" value= "View Task"></a><br>
                     </form>
                     
                     </div>
@@ -74,44 +75,7 @@
               <a href="#!" style="color: #23af89;" data-mdb-toggle="tooltip" title="Ascending"><i
                   class="fas fa-sort-amount-down-alt ms-2"></i></a>
             </div>
-            <?php
-            $username = $_SESSION['username'] ;
-            $query = "SELECT * FROM todo_list WHERE username = '$username'";
-            $query_run = mysqli_query($con,$query);
-            echo "<ul>";
-            while ($row = mysqli_fetch_assoc($query_run)){
-           /* echo "<li>"."Task: ". $row['task']. "</li>";
-            echo "<li>"."Date Added : ". $row['date_added']. "</li>";
-            echo "<li>"."Due_Date : ". $row['due_date']. "</li>";
-              }
-            echo "</ul>"; */ 
-           
-            #echo '<ul class="list-group list-group-horizontal rounded-0 bg-transparent">';
             
-              echo '<li
-                class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent">
-                <div class="form-check">
-                  <input class="form-check-input me-0" type="checkbox" value="1" id="flexCheckChecked1"
-                    aria-label="..."  />
-                </div>
-              </li>';
-              echo '<li
-                class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
-                <p class="lead fw-normal mb-0">'."Task: ". $row['task'].'</p>
-              </li>';
-              echo '<li
-                class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
-                <p class="lead fw-normal mb-0">'."Task: ". $row['date_added'].'</p>
-              </li>';
-              echo '<li
-                class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
-                <p class="lead fw-normal mb-0">'."Task: ". $row['due_date'].'</p>
-              </li>';
-              echo '<hr class="my-4">';
-            }
-            echo '</ul>';
-            ?>
-          </div>
           
 </section>
 <?php 
@@ -122,7 +86,7 @@
         $date_added = date('d-m-y');
         $username = $_SESSION['username'] ;
 
-        $query = "insert into todo_list values('','$username','$task','$date_added','$due_date')";
+        $query = "insert into todo_list values('','$username','$task','','$date_added','$due_date')";
         $query_run = mysqli_query($con,$query);
         if ($query_run){
             echo "task added";
@@ -130,9 +94,43 @@
             echo mysqli_error($con);
         }
 
+
+    }
+          
+            
+            
+    
+/*
+        $username = $_SESSION['username'] ;
+        $query = "SELECT * FROM todo_list WHERE username = '$username'";
+        $query_run = mysqli_query($con,$query);
+        
+        
+       
     }
 
-    
+  */  
 ?>
+
+<script>
+    var checkbox = document.getElementById("flexCheckChecked1");
+
+// Add an event listener for when the checkbox is clicked
+checkbox.addEventListener("click", function() {
+  // Create a new XMLHttpRequest object
+  var xhttp = new XMLHttpRequest();
+
+  // Set the callback function to execute when the response is received
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log("Checkbox value updated.");
+    }
+  };
+
+  // Send the AJAX request to the PHP script with the checkbox value
+  xhttp.open("GET", "update_checkbox.php?value=" + checkbox.checked, true);
+  xhttp.send();
+});
+</script>
 </body>
 </html>
