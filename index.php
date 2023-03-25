@@ -36,7 +36,7 @@ if (isset($_POST['login'])){
     if (mysqli_num_rows($query_run)>0){
         //correct username and password
         $_SESSION['username'] = $username;
-        header('location:to_do.php');
+        header('location:addTask.php');
     } else{
         //wrong username or password 
         echo "user doesn't exist";

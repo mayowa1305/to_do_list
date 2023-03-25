@@ -1,12 +1,11 @@
 <?php
-    
-    session_start();
-    require("dbconfig/dbconfig.php");
+
+session_start();
+require("dbconfig/dbconfig.php");
 ?>
-            
             <div class="d-flex justify-content-end align-items-center mb-4 pt-2 pb-3">
             <a href="addTask.php"><u>My Todo-s</u></a>  
-            <h2>Tasks</h2>
+            <h2>Active Tasks</h2>
               <p class="small mb-0 me-2 text-muted">Filter</p>
               <ul>
                 <li><a href="completed_task.php">Completed</a></li>
@@ -15,11 +14,11 @@
               </ul>
               <hr class="my-4">
             </div>
-           
 <?php
-            
-            $username = $_SESSION['username'] ;
-            $query = "SELECT * FROM todo_list WHERE username = '$username'";
+
+            $username = $_SESSION['username'];
+
+            $query = "SELECT * FROM todo_list WHERE username = '$username' AND status = ''";
             $query_run = mysqli_query($con,$query);
             echo "<ul>";
             while ($row = mysqli_fetch_assoc($query_run)){
@@ -41,22 +40,8 @@
                 class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
                 <p class="lead fw-normal mb-0">'."Status: ". $row['status'].'</p>
               </li>';
-              echo '<form action="todo_list.php" method="post">
-            <input type="submit" name="status" value="completed">
-            </form>';
-            
-            if (isset($_POST['status'])){
-                
-                $status = "completed";
+              
 
-               
-                $task = $row['task'];
-                $query1 = "UPDATE todo_list
-                SET status = '$status'
-                WHERE task = '$task'";
-                $query_run1 = mysqli_query($con,$query1);
-                
-            }
               echo '<hr class="my-4">';
 
             }
@@ -65,4 +50,3 @@
             
             ?>
            
-        

@@ -33,14 +33,14 @@
 
             <p class="h1 text-center mt-3 mb-4 pb-3 text-primary">
               <i class="fas fa-check-square me-1"></i>
-              <u>My Todo-s</u>
+              <a href="addTask.php"><u>My Todo-s</u></a>
             </p>
 
             <div class="pb-2">
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-row align-items-center">
-                    <form action="to_do.php" method="post">
+                    <form action="addTask.php" method="post">
                         <label><b>Input task:</b></label><br>
                     <input name = "task" type="text" class="form-control form-control-lg" id="exampleFormControlInput1"
                       placeholder="Add new..."><br><br>
@@ -48,7 +48,7 @@
                     <input type="date" name= "due_date">
                     <div>
                       <br><input name= "submit" type="submit" class="btn btn-primary" value="add"><br><br>
-                      <a href="todo.php"><input type="button" value= "View Task"></a><br>
+                      <a href="todo_list.php"><input type="button" value= "View Task"></a><br>
                     </form>
                     
                     </div>
@@ -59,22 +59,7 @@
 
             <hr class="my-4">
 
-            <div class="d-flex justify-content-end align-items-center mb-4 pt-2 pb-3">
-              <p class="small mb-0 me-2 text-muted">Filter</p>
-              <select class="select">
-                <option value="1">All</option>
-                <option value="2">Completed</option>
-                <option value="3">Active</option>
-                <option value="4">Has due date</option>
-              </select>
-              <p class="small mb-0 ms-4 me-2 text-muted">Sort</p>
-              <select class="select">
-                <option value="1">Added date</option>
-                <option value="2">Due date</option>
-              </select>
-              <a href="#!" style="color: #23af89;" data-mdb-toggle="tooltip" title="Ascending"><i
-                  class="fas fa-sort-amount-down-alt ms-2"></i></a>
-            </div>
+            
             
           
 </section>
