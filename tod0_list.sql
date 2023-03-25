@@ -4,3 +4,5 @@ CREATE TABLE `todo_list` (
   `date_added` varchar(255) NOT NULL DEFAULT (now()),
   `due_date` varchar(255) NOT NULL
 );
+
+

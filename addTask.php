@@ -47,7 +47,7 @@
                       <label><b>Due Date:</b></label><br>
                     <input type="date" name= "due_date">
                     <div>
-                      <br><input name= "submit" type="submit" class="btn btn-primary" value="add"><br><br>
+                      <br><input name= "submit" type="submit" class="btn btn-primary" value="Add"><br><br>
                       <a href="todo_list.php"><input type="button" value= "View Task"></a><br>
                     </form>
                     
@@ -66,11 +66,26 @@
 <?php 
     if (isset($_POST['submit']))
     {
+
         $task = $_POST['task'];
         $due_date = $_POST['due_date'];
-        $date_added = date('d-m-y');
+        $date_added = date('y-m-d');
         $username = $_SESSION['username'] ;
 
+        $query = "select * from todo_list WHERE task='$task'";
+        $query_run =  mysqli_query($con,$query);
+        $convdate_added = strtotime($date_added);
+        $convdue_date = strtotime($due_date);
+
+        
+
+
+        if (mysqli_num_rows($query_run)>0){
+          echo "Task: '".$task."' already exists.";
+        
+      } elseif ($convdue_date < $convdate_added) {
+        echo "Input a valid due date";
+      }else{
         $query = "insert into todo_list values('','$username','$task','','$date_added','$due_date')";
         $query_run = mysqli_query($con,$query);
         if ($query_run){
@@ -78,23 +93,11 @@
         } else{
             echo mysqli_error($con);
         }
+      }
+  
 
-
+      
     }
-          
-            
-            
-    
-/*
-        $username = $_SESSION['username'] ;
-        $query = "SELECT * FROM todo_list WHERE username = '$username'";
-        $query_run = mysqli_query($con,$query);
-        
-        
-       
-    }
-
-  */  
 ?>
 
 <script>
